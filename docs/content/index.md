@@ -65,11 +65,11 @@ Features
   color: neutral
   size: lg
   target: _blank
-  to: https://ui.nuxt.com/pro
+  to: https://ui.nuxt.com
   trailingIcon: i-lucide-arrow-right
   variant: subtle
   ---
-  Documentation built using Nuxt UI Pro
+  Documentation built using Nuxt UI
   :::
 
 #features
