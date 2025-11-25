@@ -1,4 +1,20 @@
 {
-  "extends": ["@nuxtjs"],
-  "reviewers": ["mitjans"]
+  "extends": [
+    "github>nuxt/renovate-config-nuxt"
+  ],
+  "workspaces": true,
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "resolutions"
+      ],
+      "enabled": false
+    }
+  ],
+  "postUpdateOptions": [
+    "pnpmDedupe"
+  ]
 }

@@ -41,10 +41,12 @@ const { header } = useAppConfig()
       <NuxtLink :to="header?.to || '/'">
         <div class="flex items-baseline gap-2">
           <Logo class="h-6" />
-          <Icon name="i-simple-icons-posthog" size=20 />
+          <Icon
+            name="i-simple-icons-posthog"
+            size="20"
+          />
         </div>
       </NuxtLink>
-
     </template>
 
     <template #right>

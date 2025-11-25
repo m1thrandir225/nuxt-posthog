@@ -1,13 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
+    '../src/module',
     '@nuxt/eslint',
     '@nuxt/image',
-    '@nuxt/ui-pro',
+    '@nuxt/ui',
     '@nuxt/content',
     'nuxt-og-image',
-    'nuxt-llms',
-    '../src/module',
+    'nuxt-llms'
   ],
 
   devtools: {
@@ -23,12 +23,7 @@ export default defineNuxtConfig({
           searchDepth: 1
         }
       }
-    },
-    experimental: { sqliteConnector: 'native' }
-  },
-
-  future: {
-    compatibilityVersion: 4
+    }
   },
 
   compatibilityDate: '2024-07-11',
@@ -38,7 +33,8 @@ export default defineNuxtConfig({
       routes: [
         '/'
       ],
-      crawlLinks: true
+      crawlLinks: true,
+      autoSubfolderIndex: false
     }
   },
 
@@ -58,7 +54,7 @@ export default defineNuxtConfig({
   llms: {
     domain: 'https://docs-template.nuxt.dev/',
     title: 'Nuxt Docs Template',
-    description: 'A template for building documentation with Nuxt UI Pro and Nuxt Content.',
+    description: 'A template for building documentation with Nuxt UI and Nuxt Content.',
     full: {
       title: 'Nuxt Docs Template - Full Documentation',
       description: 'This is the full documentation for the Nuxt Docs Template.'
