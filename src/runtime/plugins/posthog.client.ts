@@ -39,8 +39,14 @@ export default defineNuxtPlugin({
 
     const posthogClient = posthog.init(config.publicKey, clientOptions);
 
-    const identity = useCookie('ph-identify');
-    identity.value = posthog.get_distinct_id();
+    // Only use cookies if cookieless mode is not enabled
+    // Available options: 'always', 'on_reject', 'never'
+
+    const cookielessMode = clientOptions.cookieless_mode;
+    if (cookielessMode !== 'always') {
+      const identity = useCookie('ph-identify');
+      identity.value = posthog.get_distinct_id();
+    }
 
     if (config.capturePageViews) {
       // Make sure that pageviews are captured with each route change
