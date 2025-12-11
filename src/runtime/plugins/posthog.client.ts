@@ -40,12 +40,36 @@ export default defineNuxtPlugin({
     const posthogClient = posthog.init(config.publicKey, clientOptions);
 
     // Only use cookies if cookieless mode is not enabled
-    // Available options: 'always', 'on_reject', 'never'
-
+    // Available options: 'always', 'on_reject'
     const cookielessMode = clientOptions.cookieless_mode;
     if (cookielessMode !== 'always') {
       const identity = useCookie('ph-identify');
-      identity.value = posthog.get_distinct_id();
+      if (cookielessMode === 'on_reject') {
+        const checkAndSyncCookie = () => {
+          if (typeof posthog.get_explicit_consent_status === 'function') {
+            const status = posthog.get_explicit_consent_status();
+            if (status === 'granted') {
+              identity.value = posthog.get_distinct_id();
+            }
+          }
+        };
+
+        checkAndSyncCookie();
+
+        if (typeof window !== 'undefined') {
+          const interval = setInterval(() => {
+            checkAndSyncCookie();
+            if (typeof posthog.get_explicit_consent_status === 'function') {
+              const status = posthog.get_explicit_consent_status();
+              if (status !== 'pending') {
+                clearInterval(interval);
+              }
+            }
+          }, 1000);
+        }
+      } else {
+        identity.value = posthog.get_distinct_id();
+      }
     }
 
     if (config.capturePageViews) {

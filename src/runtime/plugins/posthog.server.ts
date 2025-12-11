@@ -25,13 +25,18 @@ export default defineNuxtPlugin({
     await posthog.reloadFeatureFlags();
 
     // Check if cookieless mode is enabled
-    // Available options: 'always', 'on_reject', 'never'
+    // Available options: 'always', 'on_reject'
     const cookielessMode = config.clientOptions?.cookieless_mode;
     let identity = '';
 
     if (cookielessMode !== 'always') {
       const identityCookie = useCookie('ph-identify', { default: () => '' });
-      identity = identityCookie.value;
+
+      if (cookielessMode === 'on_reject') {
+        identity = identityCookie.value || '';
+      } else {
+        identity = identityCookie.value;
+      }
     }
 
     const { featureFlags, featureFlagPayloads } = await posthog.getAllFlagsAndPayloads(identity);

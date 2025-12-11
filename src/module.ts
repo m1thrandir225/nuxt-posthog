@@ -144,10 +144,6 @@ export default defineNuxtModule<ModuleOptions>({
       filePath: resolve('./runtime/components/PostHogFeatureFlag.vue'),
       name: 'PostHogFeatureFlag',
     });
-    addComponent({
-      filePath: resolve('./runtime/components/PostHogCookieBanner.vue'),
-      name: 'PostHogCookieBanner',
-    });
     addTypeTemplate({
       filename: 'types/posthog-directives.d.ts',
       src: resolve('./runtime/types/directives.d.ts'),
