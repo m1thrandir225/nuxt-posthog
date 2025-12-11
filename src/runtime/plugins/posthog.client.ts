@@ -39,12 +39,13 @@ export default defineNuxtPlugin({
 
     const posthogClient = posthog.init(config.publicKey, clientOptions);
 
-    // Only use cookies if cookieless mode is not enabled
-    // Available options: 'always', 'on_reject'
+    // Respect cookieless mode for identity
     const cookielessMode = clientOptions.cookieless_mode;
     if (cookielessMode !== 'always') {
       const identity = useCookie('ph-identify');
+
       if (cookielessMode === 'on_reject') {
+        console.log('cookielessMode === "on_reject"');
         const checkAndSyncCookie = () => {
           if (typeof posthog.get_explicit_consent_status === 'function') {
             const status = posthog.get_explicit_consent_status();

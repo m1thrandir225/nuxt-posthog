@@ -24,8 +24,7 @@ export default defineNuxtPlugin({
     const posthog = new PostHog(config.publicKey, { host: config.host });
     await posthog.reloadFeatureFlags();
 
-    // Check if cookieless mode is enabled
-    // Available options: 'always', 'on_reject'
+    // Respect cookieless mode for identity
     const cookielessMode = config.clientOptions?.cookieless_mode;
     let identity = '';
 
